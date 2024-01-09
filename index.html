@@ -14,7 +14,7 @@
         flex-basis: 50%;
       }
 
-      img {
+      #photo {
         max-width: 100%;
       }
 
@@ -26,25 +26,36 @@
       <button id="loadFileBtn">
         Load File
       </button>
+      <button id="detectBtn">
+        Detect
+      </button>
       <input style="display:none;" type="file" id="file" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
       <div class="result">
         <div class="original">
           <img id="photo"/>
+          <img id="photoRaw" style="display:none;"/>
         </div>
         <div class="processed">
         </div>
       </div>
     </div>
     <script type="text/javascript">
+      let documentScanner;
       var Module = {
         // https://emscripten.org/docs/api_reference/module.html#Module.onRuntimeInitialized
         onRuntimeInitialized() {
+          documentScanner = new DocumentScanner();
           document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
         }
       };
       document.getElementById("loadFileBtn").addEventListener("click",function(){
         document.getElementById("file").click();
       })
+      document.getElementById("detectBtn").addEventListener("click",function(){
+        let points = documentScanner.detect(document.getElementById("photoRaw"));
+        console.log(points);
+      })
+      
       function loadImageFromFile(){
         let fileInput = document.getElementById("file");
         let files = fileInput.files;
@@ -55,6 +66,7 @@
         fileReader = new FileReader();
         fileReader.onload = function(e){
           document.getElementById("photo").src = e.target.result;
+          document.getElementById("photoRaw").src = e.target.result;
         };
         fileReader.onerror = function () {
           console.warn('oops, something went wrong.');
@@ -62,7 +74,7 @@
         fileReader.readAsDataURL(file);
       }
     </script>
-    <script async src="https://docs.opencv.org/4.8.0/opencv.js" type="text/javascript"></script>
+    <script async src="/opencv.js" type="text/javascript"></script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
