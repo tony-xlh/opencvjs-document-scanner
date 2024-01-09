@@ -14,7 +14,7 @@
         flex-basis: 50%;
       }
 
-      #photo {
+      #output, #photo {
         max-width: 100%;
       }
 
@@ -36,6 +36,7 @@
           <img id="photoRaw" style="display:none;"/>
         </div>
         <div class="processed">
+          <img id="output"/>
         </div>
       </div>
     </div>
@@ -53,7 +54,8 @@
       })
       document.getElementById("detectBtn").addEventListener("click",function(){
         let points = documentScanner.detect(document.getElementById("photoRaw"));
-        console.log(points);
+        let canvas = documentScanner.crop(document.getElementById("photoRaw"),points);
+        document.getElementById("output").src = canvas.toDataURL();
       })
       
       function loadImageFromFile(){
