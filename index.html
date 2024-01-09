@@ -5,10 +5,35 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
+    <style>
+      .result {
+        display: flex;
+      }
+
+      .original, .processed {
+        flex-basis: 50%;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+    </style>
   </head>
   <body>
     <div id="app">
       <div id="status">Loading OpenCV...</div>
+      <button id="loadFileBtn">
+        Load File
+      </button>
+      <input style="display:none;" type="file" id="file" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
+      <div class="result">
+        <div class="original">
+          <img id="photo"/>
+        </div>
+        <div class="processed">
+        </div>
+      </div>
     </div>
     <script type="text/javascript">
       var Module = {
@@ -17,9 +42,27 @@
           document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
         }
       };
+      document.getElementById("loadFileBtn").addEventListener("click",function(){
+        document.getElementById("file").click();
+      })
+      function loadImageFromFile(){
+        let fileInput = document.getElementById("file");
+        let files = fileInput.files;
+        if (files.length == 0) {
+          return;
+        }
+        let file = files[0];
+        fileReader = new FileReader();
+        fileReader.onload = function(e){
+          document.getElementById("photo").src = e.target.result;
+        };
+        fileReader.onerror = function () {
+          console.warn('oops, something went wrong.');
+        };
+        fileReader.readAsDataURL(file);
+      }
     </script>
     <script async src="https://docs.opencv.org/4.8.0/opencv.js" type="text/javascript"></script>
     <script type="module" src="/src/main.ts"></script>
-    <script></script>
   </body>
 </html>
