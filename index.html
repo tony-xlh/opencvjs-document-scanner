@@ -72,6 +72,8 @@
         onRuntimeInitialized() {
           documentScanner = new DocumentScanner();
           document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
+          const detectHandler = new OpenCVDocumentDetectHandler(documentScanner);
+          Dynamsoft.DDV.setProcessingHandler("documentBoundariesDetect", detectHandler);
         }
       };
 
@@ -87,6 +89,7 @@
             enableAutoDetect: true
           }
         });
+        
         captureViewer.on("captured", async (e) => {
             // Stop video stream and hide capture viewer's container
             captureViewer.stop();
@@ -111,8 +114,10 @@
         document.getElementById("output").src = canvas.toDataURL();
       })
       document.getElementById("liveScanBtn").addEventListener("click",function(){
-        document.getElementById("captureViewer").style.display = "block";
-        captureViewer.play();
+        if (captureViewer) {
+          document.getElementById("captureViewer").style.display = "block";
+          captureViewer.play();
+        }
       })
       
       function loadImageFromFile(){
