@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/dynamsoft-document-viewer@1.0.0/dist/ddv.js"></script>
+    <link rel="stylesheet" href="/dynamsoft-document-viewer@1.0.0/dist/ddv.css">
     <title>Vite + TS</title>
     <style>
       .result {
@@ -18,6 +20,18 @@
         max-width: 100%;
       }
 
+      .fullscreen {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .captureViewer, .perspectiveViewer {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -29,6 +43,9 @@
       <button id="detectBtn">
         Detect
       </button>
+      <button id="liveScanBtn">
+        Live Scan
+      </button>
       <input style="display:none;" type="file" id="file" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
       <div class="result">
         <div class="original">
@@ -39,9 +56,17 @@
           <img id="output"/>
         </div>
       </div>
+      <div>
+        <div id="captureViewer" class="fullscreen"></div>
+        <div id="perspectiveViewer" class="fullscreen"></div>
+      </div>
     </div>
     <script type="text/javascript">
       let documentScanner;
+      let captureViewer;
+      let perspectiveViewer;
+      initDDV();
+
       var Module = {
         // https://emscripten.org/docs/api_reference/module.html#Module.onRuntimeInitialized
         onRuntimeInitialized() {
@@ -49,6 +74,34 @@
           document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
         }
       };
+
+      async function initDDV(){
+        await Dynamsoft.DDV.setConfig({
+            license: "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", // Public trial license which is valid for 24 hours
+            engineResourcePath: "/dynamsoft-document-viewer@1.0.0/dist/engine", // Lead to a folder containing the distributed WASM files
+        });
+        captureViewer = new Dynamsoft.DDV.CaptureViewer({
+          container: document.getElementById("captureViewer"),
+          viewerConfig: {
+            enableAutoCapture: true,
+            enableAutoDetect: true
+          }
+        });
+        captureViewer.on("captured", async (e) => {
+            // Stop video stream and hide capture viewer's container
+            captureViewer.stop();
+            document.getElementById("captureViewer").style.display = "none";
+            const pageData =  await captureViewer.currentDocument.getPageData(e.pageUid);
+            // Original image
+            let url = URL.createObjectURL(pageData.raw.data);
+            document.getElementById("photo").src = url;
+            document.getElementById("photoRaw").src = url;
+        });
+        perspectiveViewer = new Dynamsoft.DDV.PerspectiveViewer({
+          container: document.getElementById("perspectiveViewer"),
+        });
+      }
+
       document.getElementById("loadFileBtn").addEventListener("click",function(){
         document.getElementById("file").click();
       })
@@ -56,6 +109,10 @@
         let points = documentScanner.detect(document.getElementById("photoRaw"));
         let canvas = documentScanner.crop(document.getElementById("photoRaw"),points);
         document.getElementById("output").src = canvas.toDataURL();
+      })
+      document.getElementById("liveScanBtn").addEventListener("click",function(){
+        document.getElementById("captureViewer").style.display = "block";
+        captureViewer.play();
       })
       
       function loadImageFromFile(){
