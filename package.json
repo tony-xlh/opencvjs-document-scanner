@@ -1,15 +1,32 @@
 {
   "name": "opencv-document-scanner",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
+  "main": "./dist/opencv-document-scanner.umd.cjs",
+  "module": "./dist/opencv-document-scanner.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/opencv-document-scanner.js",
+      "require": "./dist/opencv-document-scanner.cjs"
+    }
+  },
+  "files": [
+    "dist/*.css",
+    "dist/*.js",
+    "dist/*.cjs",
+    "dist/*.d.ts"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^20.10.8",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.7.0"
   }
 }
