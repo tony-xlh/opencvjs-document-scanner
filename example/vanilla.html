@@ -117,6 +117,7 @@
             enableAutoDetect: true
           }
         });
+        
         const cameras = await captureViewer.getAllCameras();
         for (var i=0;i<cameras.length;i++)
         { 
@@ -178,7 +179,7 @@
       document.getElementById("liveScanBtn").addEventListener("click",function(){
         if (captureViewer) {
           document.getElementById("captureViewer").style.display = "block";
-          captureViewer.play();
+          captureViewer.play({fill:true});
         }
       })
 

@@ -173,7 +173,7 @@
       document.getElementById("liveScanBtn").addEventListener("click",function(){
         if (captureViewer) {
           document.getElementById("captureViewer").style.display = "block";
-          captureViewer.play();
+          captureViewer.play({fill:true});
         }
       })
 
