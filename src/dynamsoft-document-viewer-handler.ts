@@ -1,7 +1,8 @@
 import { DocumentScanner } from ".";
 
-// Inherit DocumentDetect class
 const Dynamsoft = (window as any)["Dynamsoft"];
+const canvas = document.createElement('canvas');
+// Inherit DocumentDetect class
 export class OpenCVDocumentDetectHandler extends Dynamsoft.DDV.DocumentDetect {
   private documentScanner:DocumentScanner;
   constructor(documentScanner:DocumentScanner){
@@ -27,7 +28,6 @@ export class OpenCVDocumentDetectHandler extends Dynamsoft.DDV.DocumentDetect {
         data = image.data.slice(0);
       }
 
-      const canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
       const context = canvas.getContext('2d');
