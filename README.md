@@ -24,6 +24,20 @@ Via CDN:
 </script>
 ```
 
+You also need to include OpenCV:
+
+```html
+<script type="text/javascript">
+  var Module = {
+    // https://emscripten.org/docs/api_reference/module.html#Module.onRuntimeInitialized
+    onRuntimeInitialized() {
+      document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
+    }
+  };
+</script>
+<script async src="https://docs.opencv.org/4.8.0/opencv.js" type="text/javascript"></script>
+```
+
 ## Usage
 
 1. Initialize an instance.
@@ -50,12 +64,15 @@ Via CDN:
    
    ```js
    <script type="module">
-   import { DocumentScanner } from 'https://cdn.jsdelivr.net/npm/opencv-document-scanner/dist/opencv-document-scanner.js';
-   const documentScanner = new DocumentScanner();
-   const detectHandler = new OpenCVDocumentDetectHandler(documentScanner);
-   Dynamsoft.DDV.setProcessingHandler("documentBoundariesDetect", detectHandler);
+     import { DocumentScanner } from 'https://cdn.jsdelivr.net/npm/opencv-document-scanner/dist/opencv-document-scanner.js';
+     const documentScanner = new DocumentScanner();
+     const detectHandler = new OpenCVDocumentDetectHandler(documentScanner);
+     Dynamsoft.DDV.setProcessingHandler("documentBoundariesDetect", detectHandler);
    </script>
    ```
+
+   ![image](https://github.com/tony-xlh/opencvjs-document-scanner/assets/5462205/3572db79-d98c-4012-b640-fef3b5cc83d0)
+
 
 5. Edit the polygon with Dynamsoft Document Viewer.
 
@@ -67,4 +84,7 @@ Via CDN:
    });
    perspectiveViewer.setQuadSelection(quad);
    ```
+
+   ![image](https://github.com/tony-xlh/opencvjs-document-scanner/assets/5462205/aad13adb-3c7e-45ae-81c3-2df5d283b4c5)
+
 
