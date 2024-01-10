@@ -10,6 +10,12 @@
     <script>eruda.init();</script>
     <title>Vite + TS</title>
     <style>
+      #app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
       .result {
         display: flex;
       }
@@ -38,21 +44,26 @@
   </head>
   <body>
     <div id="app">
+      <h2>OpenCV Document Scanner</h2>
       <div id="status">Loading OpenCV...</div>
-      <button id="loadFileBtn">
-        Load File
-      </button>
-      <button id="detectBtn">
-        Detect
-      </button>
-      <button id="liveScanBtn">
-        Live Scan
-      </button>
-      <label>
-        Enable Editing:
-        <input type="checkbox" id="enableEditing"/>
-      </label>
-      <input style="display:none;" type="file" id="file" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
+      <div>
+        <button id="loadFileBtn">
+          Load File
+        </button>
+        <button id="detectBtn">
+          Detect
+        </button>
+        <button id="liveScanBtn">
+          Live Scan
+        </button>
+      </div>
+      <div>
+        <label>
+          Enable Editing:
+          <input type="checkbox" id="enableEditing"/>
+        </label>
+        <input style="display:none;" type="file" id="file" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
+      </div>
       <div class="result">
         <div class="original">
           <img id="photo"/>
