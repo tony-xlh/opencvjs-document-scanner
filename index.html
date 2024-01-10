@@ -111,6 +111,7 @@
             await loadImage(document.getElementById("photoRaw"), url);
             let canvas = documentScanner.crop(document.getElementById("photoRaw"));
             document.getElementById("output").src = canvas.toDataURL();
+            captureViewer.currentDocument.deleteAllPages();
         });
         perspectiveViewer = new Dynamsoft.DDV.PerspectiveViewer({
           container: document.getElementById("perspectiveViewer"),
