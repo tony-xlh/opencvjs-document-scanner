@@ -4,6 +4,8 @@ A document scanner implemented with opencv.js. It can detect the boundaries of d
 
 [Online demo](https://ornate-unicorn-65848b.netlify.app/)
 
+[Demo video](https://github.com/tony-xlh/opencvjs-document-scanner/assets/5462205/0f1748fc-1e19-462f-9928-c9efde0863ad)
+
 Example:
 
 ![example](https://github.com/tony-xlh/opencvjs-document-scanner/assets/5462205/dba83ab0-75bd-4685-a462-ef61fb21629d)
