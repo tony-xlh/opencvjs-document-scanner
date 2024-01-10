@@ -49,15 +49,15 @@ You also need to include OpenCV:
 2. Detect the polygon of documents and return the points.
 
    ```js
-   let imgElement = document.getElementById("photoRaw")
-   documentScanner.detect(imgElement); //detect from an img or canvas element
+   const imgElement = document.getElementById("photoRaw")
+   const points = documentScanner.detect(imgElement); //detect from an img or canvas element
    ```
    
 3. Get the cropped document image.
    
    ```js
    let imgElement = document.getElementById("photoRaw")
-   documentScanner.crop(imgElement); //get cropped image from an img or canvas element
+   const canvas = documentScanner.crop(imgElement); //get cropped image from an img or canvas element
    ```
    
 4. Live scanning with camera using [Dynamsoft Document Viewer](https://www.dynamsoft.com/document-viewer/docs/introduction/index.html).
