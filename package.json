@@ -1,7 +1,7 @@
 {
   "name": "opencv-document-scanner",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "main": "./dist/opencv-document-scanner.umd.cjs",
   "module": "./dist/opencv-document-scanner.js",
