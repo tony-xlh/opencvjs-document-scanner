@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/dynamsoft-document-viewer@1.0.0/dist/ddv.js"></script>
     <link rel="stylesheet" href="/dynamsoft-document-viewer@1.0.0/dist/ddv.css">
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
     <title>Vite + TS</title>
     <style>
       .result {
@@ -89,6 +91,14 @@
             enableAutoDetect: true
           }
         });
+        const cameras = await captureViewer.getAllCameras();
+        for (var i=0;i<cameras.length;i++)
+        { 
+            if(cameras[i].label.indexOf("Droid") != -1){ //for desktop testing
+                captureViewer.selectCamera(cameras[i]);
+                break;
+            }
+        }
         
         captureViewer.on("captured", async (e) => {
             // Stop video stream and hide capture viewer's container
@@ -98,7 +108,9 @@
             // Original image
             let url = URL.createObjectURL(pageData.raw.data);
             document.getElementById("photo").src = url;
-            document.getElementById("photoRaw").src = url;
+            await loadImage(document.getElementById("photoRaw"), url);
+            let canvas = documentScanner.crop(document.getElementById("photoRaw"));
+            document.getElementById("output").src = canvas.toDataURL();
         });
         perspectiveViewer = new Dynamsoft.DDV.PerspectiveViewer({
           container: document.getElementById("perspectiveViewer"),
@@ -119,6 +131,15 @@
           captureViewer.play();
         }
       })
+
+      async function loadImage(img,src) {
+        return new Promise((resolve, reject) => {
+          img.onload = function(){
+            resolve();
+          }
+          img.src = src;
+        })
+      }
       
       function loadImageFromFile(){
         let fileInput = document.getElementById("file");
