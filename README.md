@@ -62,7 +62,7 @@ You also need to include OpenCV:
    
 4. Live scanning with camera using [Dynamsoft Document Viewer](https://www.dynamsoft.com/document-viewer/docs/introduction/index.html).
    
-   ```js
+   ```html
    <script type="module">
      import { DocumentScanner } from 'https://cdn.jsdelivr.net/npm/opencv-document-scanner/dist/opencv-document-scanner.js';
      const documentScanner = new DocumentScanner();
