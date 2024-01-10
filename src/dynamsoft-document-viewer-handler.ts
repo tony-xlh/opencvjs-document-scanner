@@ -25,7 +25,7 @@ export class OpenCVDocumentDetectHandler extends Dynamsoft.DDV.DocumentDetect {
         var inputUint8Array = new Uint8Array(inputArrayBuffer);
         pixelData.set(inputUint8Array);
         context.putImageData(imageData, 0, 0);
-        const points = this.documentScanner.detect(canvas as any);
+        const points = this.documentScanner.detect(canvas);
         points.forEach(p => {
           quad.push([p.x, p.y]);
         });

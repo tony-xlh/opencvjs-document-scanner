@@ -13,9 +13,9 @@ export class DocumentScanner {
     }
   }
 
-  detect(imgElement:HTMLImageElement):Point[]{
+  detect(source:HTMLImageElement|HTMLCanvasElement):Point[]{
     let cv = this.cv;
-    const img = cv.imread(imgElement);
+    const img = cv.imread(source);
     const gray = new cv.Mat();
     cv.cvtColor(img, gray, cv.COLOR_RGBA2GRAY);
     const blur = new cv.Mat();
@@ -49,12 +49,12 @@ export class DocumentScanner {
     return points;
   }
 
-  crop(imgElement:HTMLImageElement,points?:Point[],width?:number,height?:number):HTMLCanvasElement{
+  crop(source:HTMLImageElement|HTMLCanvasElement,points?:Point[],width?:number,height?:number):HTMLCanvasElement{
     const cv = this.cv;
     const canvas = document.createElement("canvas");
-    const img = cv.imread(imgElement);
+    const img = cv.imread(source);
     if (!points) {
-      points = this.detect(imgElement);
+      points = this.detect(source);
     }
     let warpedDst = new cv.Mat();
     if (!width) {
