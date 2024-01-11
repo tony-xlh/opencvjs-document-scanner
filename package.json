@@ -7,9 +7,13 @@
   "module": "./dist/opencv-document-scanner.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/opencv-document-scanner.js",
-      "require": "./dist/opencv-document-scanner.cjs"
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/opencv-document-scanner.js"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/opencv-document-scanner.umd.cjs"
     }
   },
   "files": [
