@@ -14,6 +14,6 @@
   },
   "dependencies": {
     "dynamsoft-document-viewer": "^1.0.0",
-    "opencv-document-scanner": "^1.0.5"
+    "opencv-document-scanner": "^1.1.0"
   }
 }
