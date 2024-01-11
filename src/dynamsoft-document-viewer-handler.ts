@@ -1,9 +1,18 @@
 import { DocumentScanner } from ".";
 
-const Dynamsoft = (window as any)["Dynamsoft"];
+let DDV;
+
+export function setDDV(DocumentViewer:any) {
+  DDV = DocumentViewer;
+}
+
 const canvas = document.createElement('canvas');
+if ((window as any)["Dynamsoft"]) {
+  const Dynamsoft = (window as any)["Dynamsoft"];
+  DDV = Dynamsoft.DDV;
+}
 // Inherit DocumentDetect class
-export class OpenCVDocumentDetectHandler extends Dynamsoft.DDV.DocumentDetect {
+export class OpenCVDocumentDetectHandler extends DDV.DocumentDetect {
   private documentScanner:DocumentScanner;
   constructor(documentScanner:DocumentScanner){
     super();
