@@ -11,6 +11,13 @@ if ((window as any)["Dynamsoft"]) {
   const Dynamsoft = (window as any)["Dynamsoft"];
   DDV = Dynamsoft.DDV;
 }
+
+
+if (!DDV) {
+  class DocumentDetect {}
+  DDV = {DocumentDetect:DocumentDetect};
+}
+
 // Inherit DocumentDetect class
 export class OpenCVDocumentDetectHandler extends DDV.DocumentDetect {
   private documentScanner:DocumentScanner;
