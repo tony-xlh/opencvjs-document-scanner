@@ -1,5 +1,9 @@
 # opencvjs-document-scanner
 
+![version](https://img.shields.io/npm/v/opencv-document-scanner.svg)
+![downloads](https://img.shields.io/npm/dm/opencv-document-scanner.svg)
+![jsdelivr](https://img.shields.io/jsdelivr/npm/hm/opencv-document-scanner.svg)
+
 A document scanner implemented with opencv.js. It can detect the boundaries of documents and apply perspective transformation to get a deskewed image.
 
 [Online demo](https://ornate-unicorn-65848b.netlify.app/)
