@@ -93,4 +93,8 @@ You also need to include OpenCV:
 
    ![image](https://github.com/tony-xlh/opencvjs-document-scanner/assets/5462205/aad13adb-3c7e-45ae-81c3-2df5d283b4c5)
 
+## Blog
+
+[Web Document Scanner with OpenCV.js](https://www.dynamsoft.com/codepool/web-document-scanner-with-opencvjs.html)
+
 
