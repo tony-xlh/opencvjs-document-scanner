@@ -41,14 +41,13 @@
     "dynamsoft"
   ],
   "scripts": {
-    "dev": "ncp node_modules/dynamsoft-document-viewer/dist public/dynamsoft-document-viewer && vite",
-    "build": "tsc && vite build && rimraf dist/opencv.js && rimraf dist/dynamsoft-document-viewer",
+    "dev": "vite",
+    "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
     "@types/node": "^20.10.8",
     "dynamsoft-document-viewer": "^3.0.0",
-    "ncp": "^2.0.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
