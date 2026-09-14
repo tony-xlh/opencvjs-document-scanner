@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/node_modules/dynamsoft-document-viewer/dist/ddv.js"></script>
     <link rel="stylesheet" href="/node_modules/dynamsoft-document-viewer/dist/ddv.css">
+    <!-- v5.0+ uses a pluggable architecture. CaptureViewer camera features and setProcessingHandler require the camera plugin. -->
+    <script src="/node_modules/dynamsoft-document-viewer/dist/plugins/ddv-plugin-camera.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
     <title>OpenCV Document Scanner</title>
@@ -105,8 +107,10 @@
 
       async function initDDV(){
         Dynamsoft.DDV.Core.license = "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9"; // Public trial license which is valid for 24 hours
-        Dynamsoft.DDV.Core.engineResourcePath = "/node_modules/dynamsoft-document-viewer/engine";// Lead to a folder containing the distributed WASM files
-        await Dynamsoft.DDV.Core.loadWasm();
+        Dynamsoft.DDV.Core.engineResourcePath = "/node_modules/dynamsoft-document-viewer/dist/engine";// Lead to a folder containing the distributed WASM files
+        // Register plugins before Core.init(). Camera plugin is required for CaptureViewer and setProcessingHandler.
+        Dynamsoft.DDV.use(Dynamsoft.DDV.CameraPlugin);
+        //await Dynamsoft.DDV.Core.loadWasm();
         await Dynamsoft.DDV.Core.init(); 
         docManager = Dynamsoft.DDV.documentManager;
         doc = docManager.createDocument({

@@ -66,16 +66,25 @@ You also need to include OpenCV:
    const canvas = documentScanner.crop(imgElement); //get cropped image from an img or canvas element
    ```
    
-4. Live scanning with camera using [Dynamsoft Document Viewer](https://www.dynamsoft.com/document-viewer/docs/introduction/index.html).
-   
+4. Live scanning with camera using [Dynamsoft Document Viewer](https://www.dynamsoft.com/document-viewer/docs/introduction/index.html) (v5.0+).
+
+   Since v5.0, camera capture lives in a plugin, so include and register the camera plugin before initializing the SDK:
+
    ```html
+   <script src="https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@5.0.0/dist/ddv.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@5.0.0/dist/plugins/ddv-plugin-camera.js"></script>
    <script type="module">
      import { DocumentScanner, OpenCVDocumentDetectHandler } from 'https://cdn.jsdelivr.net/npm/opencv-document-scanner/dist/opencv-document-scanner.js';
+     Dynamsoft.DDV.Core.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@5.0.0/dist/engine";
+     Dynamsoft.DDV.use(Dynamsoft.DDV.CameraPlugin); // required for CaptureViewer and setProcessingHandler
+     await Dynamsoft.DDV.Core.init();
      const documentScanner = new DocumentScanner();
      const detectHandler = new OpenCVDocumentDetectHandler(documentScanner);
      Dynamsoft.DDV.setProcessingHandler("documentBoundariesDetect", detectHandler);
    </script>
    ```
+
+   > The camera plugin is required for `CaptureViewer` and `DDV.setProcessingHandler()`. Without it these APIs throw an error.
 
    ![image](https://github.com/tony-xlh/opencvjs-document-scanner/assets/5462205/3572db79-d98c-4012-b640-fef3b5cc83d0)
 

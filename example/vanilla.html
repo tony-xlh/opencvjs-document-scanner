@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@3.0.0/dist/ddv.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@3.0.0/dist/ddv.css">
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@5.0.0/dist/ddv.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@5.0.0/dist/ddv.css">
+    <!-- v5.0+ uses a pluggable architecture. CaptureViewer camera features and setProcessingHandler require the camera plugin. -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@5.0.0/dist/plugins/ddv-plugin-camera.js"></script>
     <script type="module">
       import { DocumentScanner, OpenCVDocumentDetectHandler } from 'https://cdn.jsdelivr.net/npm/opencv-document-scanner@1.2.0/dist/opencv-document-scanner.js';
       window["DocumentScanner"] = DocumentScanner;
@@ -110,8 +112,10 @@
 
       async function initDDV(){
         Dynamsoft.DDV.Core.license = "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9"; // Public trial license which is valid for 24 hours
-        Dynamsoft.DDV.Core.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@3.0.0/dist/engine";// Lead to a folder containing the distributed WASM files
-        await Dynamsoft.DDV.Core.loadWasm();
+        Dynamsoft.DDV.Core.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-document-viewer@5.0.0/dist/engine";// Lead to a folder containing the distributed WASM files
+        // Register plugins before Core.init(). Camera plugin is required for CaptureViewer and setProcessingHandler.
+        Dynamsoft.DDV.use(Dynamsoft.DDV.CameraPlugin);
+        //await Dynamsoft.DDV.Core.loadWasm();
         await Dynamsoft.DDV.Core.init(); 
         docManager = Dynamsoft.DDV.documentManager;
         doc = docManager.createDocument({
